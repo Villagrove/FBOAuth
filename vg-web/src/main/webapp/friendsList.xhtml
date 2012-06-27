@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Facebook Friends List</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<h:outputStylesheet name="common.css" library="css" />
+	<h:outputScript library="javascript" name="common.js" target="body" />
+
+	<!--  JS styles -->
+	<!-- 
+		<link rel="stylesheet" href="common.css" type="text/css" />
+		<script type="text/javascript" src="/script/site.js"></script>
+	-->
+
+
+</h:head>
+
+<h:body>
+
+	<h:form id="friendsForm">
+
+
+		<h:dataTable value="#{bean1.entries}" var="row" styleClass="imagetable" rowClasses="even,odd">
+			<h:column>
+				<f:facet name="header">
+					<h:outputText value="Name" />
+				</f:facet>
+				<h:outputText value="#{row.name}" />
+			</h:column>
+			<h:column>
+				<h:commandLink value="Delete" action="#{bean1.deleteAction}" immediate="true">
+					<f:setPropertyActionListener target="#{bean1.idToDelete}"
+						value="#{row.id}" />
+				</h:commandLink>
+			</h:column>
+		</h:dataTable>
+
+
+	</h:form>
+</h:body>
+</html>
+
