@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<title>Facebook Reader has received Code from Facebook</title>
+	<h:outputStylesheet name="common.css" library="css" />
+	<h:outputScript library="javascript" name="common.js" target="body" />
+	<script>
+		function getFbAccessToken() {
+
+		//	var code = getUrlVars()["code"];
+			//alert(code);
+			//document.getElementById('codeForm:loginToFacebook').value = code;
+			//document.getElementById('codeForm:loginToFacebook').click();
+		}
+	</script>
+</h:head>
+<h:body>
+	<h3>Trying to get access token...</h3>
+	<h:form id="codeForm">
+		<h:inputHidden id="codeHidden" />
+		
+		<!-- <h:commandButton type="submit" id="loginToFacebook" rendered="true"
+			action="#{homeBean.loginToFacebook}" value="Get Access Token"></h:commandButton> -->
+
+<!-- <h:commandButton value="press me" action="#{homeBean.loginToFacebook}"/> -->
+
+		<!-- <h:commandLink id="loginButton" immediate="true"
+			action="#{homeBean.loginToFacebook}" value="">
+			
+			<outputText value="" />
+		</h:commandLink> -->
+
+
+	</h:form>
+	<f:verbatim>
+	<script>
+		//getFbAccessToken();
+		
+		//var code = getUrlVars()["code"];
+		//	alert(code);
+		//	document.getElementById('codeForm:codeHidden').value = code;
+			//document.getElementById('codeForm:loginButton').click();
+			
+	</script>
+	</f:verbatim>
+</h:body>
+
+
+</html>
