@@ -33,7 +33,7 @@ public class DashboardBean implements Serializable {
 
 	private String accessToken;
 
-	private String redirect_uri = "http://localhost:8080/vg-web/dashboard.jsf&state=fbr123fbr";
+	
 
 	private static final long serialVersionUID = 1L;
 
@@ -92,6 +92,9 @@ public class DashboardBean implements Serializable {
 
 	private int retrieveToken(String code) {
 		logger.debug("trying to retrieve token with the code: " + code);
+		
+		String redirect_uri = "http://localhost:8080/vg-web/dashboard.jsf";
+		
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(
 				"https://graph.facebook.com/oauth/access_token");
@@ -120,6 +123,9 @@ public class DashboardBean implements Serializable {
 			post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
 			HttpResponse resp = client.execute(post);
+			
+			logger.debug("resp received: " + resp);
+			
 			BufferedReader rd = new BufferedReader(new InputStreamReader(resp
 					.getEntity().getContent()));
 
