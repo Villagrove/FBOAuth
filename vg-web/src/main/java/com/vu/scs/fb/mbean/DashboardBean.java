@@ -23,14 +23,13 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.vu.scs.fb.service.LoginService;
 import com.vu.scs.fb.util.FbrConstants;
 
 @ManagedBean
 @RequestScoped
-public class AccessTokenBean implements Serializable {
-	
-	private static Logger logger = LoggerFactory.getLogger(AccessTokenBean.class);
+public class DashboardBean implements Serializable {
+
+	private static Logger logger = LoggerFactory.getLogger(DashboardBean.class);
 
 	private String accessToken;
 
@@ -58,14 +57,10 @@ public class AccessTokenBean implements Serializable {
 		this.code = code;
 	}
 
-	public String loginToFacebook() {
-		LoginService loginService = new LoginService();
-		loginService.loginToFacebook(this);
-		return "dashboard";
-	}
-
 	@PostConstruct
 	public void init() {
+		
+		logger.debug("entering init..");
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext
 				.getCurrentInstance().getExternalContext().getRequest();
@@ -83,8 +78,12 @@ public class AccessTokenBean implements Serializable {
 		}
 
 		String code = req.getParameter("code");
+		
+		logger.debug("code received: " + code);
+		
 		if (code != null) {
 			int ret = retrieveToken(code);
+			this.code = code;
 			// process return value
 		} else {
 			// Redirect or tell the user about the error
@@ -92,19 +91,26 @@ public class AccessTokenBean implements Serializable {
 	}
 
 	private int retrieveToken(String code) {
-
+		logger.debug("trying to retrieve token with the code: " + code);
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost(
 				"https://graph.facebook.com/oauth/access_token");
-
+		/*
+		https://graph.facebook.com/oauth/access_token?
+		    client_id=YOUR_APP_ID
+		   &redirect_uri=YOUR_REDIRECT_URI
+		   &client_secret=YOUR_APP_SECRET
+		   &code=CODE_GENERATED_BY_FACEBOOK
+*/
 		try {
 
 			String[][] parameters = {
 					{ "client_id", FbrConstants.CLIENT_APP_ID },
 					{ "client_secret", FbrConstants.APP_SECRET },
-					{ "redirect_uri", redirect_uri }, { "code", code } };
+					{ "redirect_uri", redirect_uri }, 
+					{ "code", code } };
 
-			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+			List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(5);
 
 			for (int i = 0; i < parameters.length; i++) {
 				nameValuePairs.add(new BasicNameValuePair(parameters[i][0],
@@ -123,6 +129,10 @@ public class AccessTokenBean implements Serializable {
 				message += lineData;
 			}
 
+			
+			logger.debug("message received: " + message);
+			
+			
 			String token = null;
 
 			// Add more safety traps
@@ -142,6 +152,8 @@ public class AccessTokenBean implements Serializable {
 				return 0;
 			}
 
+			logger.debug("token received: " + token);
+			
 			accessToken = token;
 
 			return 1;
@@ -159,6 +171,5 @@ public class AccessTokenBean implements Serializable {
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
 	}
-
 
 }

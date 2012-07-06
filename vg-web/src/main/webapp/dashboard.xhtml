@@ -16,37 +16,44 @@
 </h:head>
 
 <h:body>
-	<table align="center">
+	<h:form id="dashboardForm">
+		<h:inputHidden id="code" value="#{dashboardBean.code}" />
+		<h:inputHidden id="state" value="#{dashboardBean.state}" />
+		<h:inputHidden id="accessToken" value="#{dashboardBean.accessToken}" />
+		
+		
 
-		<tr>
-			<td height="100" align="center">Successfully logged in with
-				Facebook Credentials</td>
-		</tr>
+		<table align="center">
 
-		<tr>
-			<td height="30" align="center">
-				<button name="" onclick="">Get My Facebook Profile</button>
-			</td>
-		</tr>
-		<tr>
-			<td height="30"></td>
-		</tr>
+			<tr>
+				<td height="100" align="center">Successfully logged in with
+					Facebook Credentials</td>
+			</tr>
 
-		<tr>
-			<td height="30" align="center">
-				<button name="" onclick="">Get My Facebook Friends</button>
-			</td>
-		</tr>
+			<tr>
+				<td height="30" align="center">
+					<button name="" onclick="">Get My Facebook Profile</button>
+				</td>
+			</tr>
+			<tr>
+				<td height="30"></td>
+			</tr>
 
-		<tr>
-			<td height="50"></td>
-		</tr>
-		<tr>
-			<td height="30" align="center">
-				<button name="" onclick="">Sign out</button>
-			</td>
-		</tr>
-	</table>
+			<tr>
+				<td height="30" align="center">
+					<button name="" onclick="">Get My Facebook Friends</button>
+				</td>
+			</tr>
 
+			<tr>
+				<td height="50"></td>
+			</tr>
+			<tr>
+				<td height="30" align="center">
+					<button name="" onclick="">Sign out</button>
+				</td>
+			</tr>
+		</table>
+	</h:form>
 </h:body>
 </html>

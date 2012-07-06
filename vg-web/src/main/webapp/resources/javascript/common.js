@@ -15,9 +15,7 @@ function loginToFacebookServer() {
 
 
 function loginToFacebookClient() {
-//	var redirect_uri = "http://localhost:8080/vg-web/hello.jsf&state=fbr123fbr";
-//	var redirect_uri = "http://localhost:8080/vg-web/dashboard.jsf&state=fbr123fbr";
-	var redirect_uri = "http://localhost:8080/vg-web/facebookCode.jsf&state=fbr123fbr";
+	var redirect_uri = "http://localhost:8080/vg-web/dashboard.jsf&state=fbr123fbr";
 	
 	window.location.href = "https://www.facebook.com/dialog/oauth?client_id=" + clientAppId +
 		"&redirect_uri=" + redirect_uri ;
