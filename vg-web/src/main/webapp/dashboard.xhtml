@@ -17,8 +17,6 @@
 
 <h:body>
 	<h:form id="dashboardForm">
-		<h:inputHidden id="code" value="#{dashboardBean.code}" />
-		<h:inputHidden id="state" value="#{dashboardBean.state}" />
 		<h:inputHidden id="accessToken" value="#{dashboardBean.accessToken}" />
 		
 		
@@ -32,7 +30,7 @@
 
 			<tr>
 				<td height="30" align="center">
-					<button name="" onclick="">Get My Facebook Profile</button>
+					<h:commandButton value="Get My Facebook Profile" action="#{dashboardBean.userBasicProfile}" ></h:commandButton>
 				</td>
 			</tr>
 			<tr>

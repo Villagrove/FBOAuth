@@ -3,7 +3,7 @@ package com.vu.scs.fb.bean;
 public class PersonDetail extends Person {
 
 	private String birthDay;
-	private String sex;
+	private String sex; //basic
 	private String relationshipStatus;
 	private String language;
 	private String workedAt;

@@ -1,8 +1,8 @@
 package com.vu.scs.fb.bean;
 
 public class Person {
-	private String firstName;
-	private String lastName;
+	private String firstName; //basic
+	private String lastName; //basic
 	private String name;
 	private String homePhone;
 	private String cellPhone;
