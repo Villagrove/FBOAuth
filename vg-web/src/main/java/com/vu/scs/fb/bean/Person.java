@@ -4,7 +4,12 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class Person implements Comparable {
+/**
+ * 
+ * @author Villagrove Team
+ * Base Class used for friends list and extended by PersonDetail for basic profile
+ */
+public class Person implements Comparable<Person> {
 	private int rowId;
 	private String firstName; // basic
 	private String lastName; // basic
@@ -97,7 +102,7 @@ public class Person implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
+	public int compareTo(Person o) {
 		if (o == null || !(o instanceof Person)) {
             return -1;
         }
@@ -107,7 +112,5 @@ public class Person implements Comparable {
         }
         return this.getName().compareTo(otherPerson.getName());
 	}
-	
-	
 
 }

@@ -25,12 +25,14 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.vu.scs.fb.bean.Person;
+import com.vu.scs.fb.util.OAuthError;
+import com.vu.scs.fb.util.OAuthErrorHandler;
 
 public class FriendsListService {
 
 	private static Logger logger = LoggerFactory.getLogger(FriendsListService.class);
 
-	public List<Person> getFriendsList(String accessToken) {
+	public List<Person> getFriendsList(String accessToken) throws OAuthError {
 		String basicInfoUrl = "https://graph.facebook.com/me/friends";
 		List<Person> personList = new ArrayList<Person>();
 
@@ -56,7 +58,11 @@ public class FriendsListService {
 
 			logger.debug("bp friends list received: " + message);
 
-			personList = extractFriendsList(message);
+			if (message != null && message.contains("error")) {
+				OAuthErrorHandler.handle(message);
+			} else if (message != null) {
+				personList = extractFriendsList(message);
+			}
 
 		} catch (UnsupportedEncodingException e) {
 			logger.error("UnsupportedEncodingException received: ", e);
@@ -67,7 +73,6 @@ public class FriendsListService {
 		} catch (IOException e) {
 			logger.error("IOException received: ", e);
 		}
-		// Now do your thing with the facebook response.
 		return personList;
 	}
 
@@ -97,9 +102,9 @@ public class FriendsListService {
 							// move to next, which is "name"'s value
 							jParser.nextToken();
 							String name = jParser.getText();
-							logger.debug("lang received: " + name);
+							logger.debug("name received: " + name);
 							Person person = new Person();
-//							person.setRowId(++rowId);
+							// person.setRowId(++rowId);
 							person.setName(name);
 							personList.add(person);
 
@@ -113,34 +118,22 @@ public class FriendsListService {
 			jParser.close();
 
 		} catch (JsonGenerationException e) {
-
 			logger.error("JsonGenerationException received: " + e);
-
 		} catch (JsonMappingException e) {
-
 			logger.error("JsonMappingException received: " + e);
-
 		} catch (IOException e) {
-
 			logger.error("IOException received: " + e);
-
 		}
+
+		// sort the names alphabetically
 
 		Collections.sort(personList);
-		//add row num
-		for(Person p : personList){
+		// add row num
+		for (Person p : personList) {
 			p.setRowId(++rowId);
 		}
-		
+
 		return personList;
-
-	}
-
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 

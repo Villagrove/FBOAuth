@@ -7,6 +7,14 @@
  cursor: pointer;  
 }
 
+table.errortable {
+	font-family: verdana,arial,sans-serif;
+	font-size:15px;
+	border-width: 2px;
+	border-color: #999999;
+	border-collapse: collapse;
+}
+
 table.imagetable {
 	font-family: verdana,arial,sans-serif;
 	font-size:11px;

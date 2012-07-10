@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -28,12 +29,15 @@ import com.vu.scs.fb.bean.PersonDetail;
 import com.vu.scs.fb.service.BasicProfileService;
 import com.vu.scs.fb.service.FriendsListService;
 import com.vu.scs.fb.util.FbrConstants;
+import com.vu.scs.fb.util.OAuthError;
 
 @ManagedBean
 @RequestScoped
 public class DashboardBean implements Serializable {
 
 	private static Logger logger = LoggerFactory.getLogger(DashboardBean.class);
+
+	private OAuthError oauthError;
 
 	private String accessToken;
 
@@ -79,34 +83,44 @@ public class DashboardBean implements Serializable {
 		this.code = code;
 	}
 
+	public OAuthError getOauthError() {
+		return oauthError;
+	}
+
+	public void setOauthError(OAuthError oauthError) {
+		this.oauthError = oauthError;
+	}
+
 	@PostConstruct
 	public void init() {
 
 		logger.debug("entering init..");
 
 		HttpServletRequest req = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
-		String error = req.getParameter("error_reason");
-		if (error != null) {
+		String error_reason = req.getParameter("error_reason");
+		if (error_reason != null) {
 			try {
-				// you may want to pass this error to
-				// the error redirect url
+				// you may want to pass this error to UI
+				String error_redirect_uri = "http://localhost:8080/vg-web/accessDenied.jsf";
 				String error_desc = req.getParameter("error_description");
-				((HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendRedirect("http://ERROR_URI.xhtml");
+
+				logger.debug("User denied access to the FBR app, error_reason: " + error_reason + ", error_desc: " + error_desc);
+				logger.debug("redirecting to " + error_redirect_uri);
+				((HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext().getResponse()).sendRedirect(error_redirect_uri);
 			} catch (Exception e) {
+				logger.error("Exception while redirecting to FBR access denied error page", e);
 			}
 		}
 
-		String code = req.getParameter("code");
+		String newCode = req.getParameter("code");
 
-		logger.debug("code received: " + code);
+		logger.debug("newCode received: " + newCode);
 
-		if (code != null) {
-			int ret = retrieveToken(code);
-			this.code = code;
-			// process return value
-		} else {
-			// Redirect or tell the user about the error
+		if (newCode != null) {
+			int ret = retrieveToken(newCode);
+			this.code = newCode;
 		}
+
 	}
 
 	private int retrieveToken(String code) {
@@ -116,11 +130,7 @@ public class DashboardBean implements Serializable {
 
 		HttpClient client = new DefaultHttpClient();
 		HttpPost post = new HttpPost("https://graph.facebook.com/oauth/access_token");
-		/*
-		 * https://graph.facebook.com/oauth/access_token? client_id=YOUR_APP_ID
-		 * &redirect_uri=YOUR_REDIRECT_URI &client_secret=YOUR_APP_SECRET
-		 * &code=CODE_GENERATED_BY_FACEBOOK
-		 */
+
 		try {
 
 			String[][] parameters = { { "client_id", FbrConstants.CLIENT_APP_ID }, { "client_secret", FbrConstants.APP_SECRET },
@@ -180,9 +190,20 @@ public class DashboardBean implements Serializable {
 	}
 
 	public String userBasicProfile() {
+		logger.debug("entering  userBasicProfile... with code " + code);
 		logger.debug("entering  userBasicProfile... with accessToken " + accessToken);
+
+		if (StringUtils.isEmpty(code) || StringUtils.isEmpty(accessToken)) {
+			return "home";
+		}
 		BasicProfileService basicProfileService = new BasicProfileService();
-		personDetail = basicProfileService.getUserBasicProfile(accessToken);
+		try {
+			personDetail = basicProfileService.getUserBasicProfile(accessToken);
+		} catch (OAuthError e) {
+			this.setOauthError(e);
+			logger.error("OAuthError received: "+ e.getErrorMessage());
+			return "error";
+		}
 
 		logger.debug("end of userBasicProfile...");
 		return "basicProfile";
@@ -190,9 +211,21 @@ public class DashboardBean implements Serializable {
 	}
 
 	public String friendsList() {
+		logger.debug("entering  userBasicProfile... with code " + code);
 		logger.debug("entering  friendsList... with accessToken " + accessToken);
+
+		if (StringUtils.isEmpty(code) || StringUtils.isEmpty(accessToken)) {
+			return "home";
+		}
+
 		FriendsListService friendsListService = new FriendsListService();
-		personList = friendsListService.getFriendsList(accessToken);
+		try {
+			personList = friendsListService.getFriendsList(accessToken);
+		} catch (OAuthError e) {
+			this.setOauthError(e);
+			logger.error("OAuthError received: "+ e.getErrorMessage());
+			return "error";
+		}
 		logger.debug("end of friendsList.");
 		return "friendsList";
 

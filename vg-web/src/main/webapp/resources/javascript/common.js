@@ -16,6 +16,20 @@ function loginToFacebookServer() {
     return false;
 }
 
+function validateAccessToken() {
+	var codeObj = document.getElementById('dashboardForm:code');  
+	
+	var accessTokenObj = document.getElementById('dashboardForm:accessToken');
+	
+	if(codeObj == null || accessTokenObj == null || codeObj.value == "" || accessTokenObj.value == ""){
+		//alert('codeObj.value:'+codeObj.value);
+		//alert('accessTokenObj.value:'+accessTokenObj.value);
+		alert("Facebook Access Token Invalid or Expired.\n\nPlease login to Facebook Reader.");
+		window.location.href = "http://localhost:8080/vg-web/home.jsf";
+	}
+	
+	
+}
 
 
 function loginToFacebookClient() {
@@ -28,6 +42,15 @@ function loginToFacebookClient() {
 		"&state=" + state +
 		"&scope=" + permissions ;
 	
+    return true;
+}
+
+
+function logoutFromFacebookClient() {
+	var logoutToken = document.getElementById('dashboardForm:accessToken').value;
+	var fbLogoutUrl = "https://www.facebook.com/logout.php";
+	var redirect_uri = "http://localhost:8080/vg-web/logout.jsf";
+	window.location.href = fbLogoutUrl + "?next=" + redirect_uri + "&access_token=" + logoutToken ;
     return true;
 }
 

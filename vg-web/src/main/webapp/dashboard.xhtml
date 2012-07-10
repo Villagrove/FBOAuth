@@ -15,11 +15,11 @@
 	<h2 align="center">Facebook Reader Dashboard</h2>
 </h:head>
 
-<h:body>
+<h:body onload="validateAccessToken();return false;">
 	<h:form id="dashboardForm">
-		<h:inputHidden id="accessToken" value="#{dashboardBean.accessToken}" />
-		
-		
+		<h:inputHidden id="code" value="#{dashboardBean.code}" required="true" />
+		<h:inputHidden id="accessToken" value="#{dashboardBean.accessToken}" 
+			required="true" />
 
 		<table align="center">
 
@@ -29,26 +29,29 @@
 			</tr>
 
 			<tr>
-				<td height="30" align="center">
-					<h:commandButton value="Get My Facebook Profile" action="#{dashboardBean.userBasicProfile}" ></h:commandButton>
-				</td>
+				<td height="30" align="center"><h:commandButton
+						value="Get My Facebook Profile"
+						action="#{dashboardBean.userBasicProfile}"></h:commandButton></td>
 			</tr>
 			<tr>
 				<td height="30"></td>
 			</tr>
 
 			<tr>
-				<td height="30" align="center">
-					<h:commandButton value="Get My Facebook Friends" action="#{dashboardBean.friendsList}" ></h:commandButton>
-				</td>
+				<td height="30" align="center"><h:commandButton
+						value="Get My Facebook Friends"
+						action="#{dashboardBean.friendsList}"></h:commandButton></td>
 			</tr>
 
 			<tr>
-				<td height="50"></td>
+				<td height="50">
+				
+				</td>
 			</tr>
 			<tr>
 				<td height="30" align="center">
-					<button name="" onclick="">Sign out</button>
+					<h:commandButton
+						value="Sign out" onclick="logoutFromFacebookClient();return false;"></h:commandButton>
 				</td>
 			</tr>
 		</table>
