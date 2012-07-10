@@ -23,8 +23,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.vu.scs.fb.bean.Person;
 import com.vu.scs.fb.bean.PersonDetail;
 import com.vu.scs.fb.service.BasicProfileService;
+import com.vu.scs.fb.service.FriendsListService;
 import com.vu.scs.fb.util.FbrConstants;
 
 @ManagedBean
@@ -40,8 +42,18 @@ public class DashboardBean implements Serializable {
 	private String code;
 
 	private String state;
-	
+
+	private List<Person> personList;
+
 	private PersonDetail personDetail;
+
+	public List<Person> getPersonList() {
+		return personList;
+	}
+
+	public void setPersonList(List<Person> personList) {
+		this.personList = personList;
+	}
 
 	public PersonDetail getPersonDetail() {
 		return personDetail;
@@ -171,9 +183,18 @@ public class DashboardBean implements Serializable {
 		logger.debug("entering  userBasicProfile... with accessToken " + accessToken);
 		BasicProfileService basicProfileService = new BasicProfileService();
 		personDetail = basicProfileService.getUserBasicProfile(accessToken);
-		
-		logger.debug("entering  userBasicProfile...");
+
+		logger.debug("end of userBasicProfile...");
 		return "basicProfile";
+
+	}
+
+	public String friendsList() {
+		logger.debug("entering  friendsList... with accessToken " + accessToken);
+		FriendsListService friendsListService = new FriendsListService();
+		personList = friendsListService.getFriendsList(accessToken);
+		logger.debug("end of friendsList.");
+		return "friendsList";
 
 	}
 

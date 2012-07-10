@@ -8,39 +8,40 @@
 <h:head>
 	<title>Facebook Friends List</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
 	<h:outputStylesheet name="common.css" library="css" />
 	<h:outputScript library="javascript" name="common.js" target="body" />
-
-	<!--  JS styles -->
-	<!-- 
-		<link rel="stylesheet" href="common.css" type="text/css" />
-		<script type="text/javascript" src="/script/site.js"></script>
-	-->
-
-
 </h:head>
 
 <h:body>
+	<h3 align="center">Facebook Friends List</h3>
+	<br></br>
 
 	<h:form id="friendsForm">
 
+		<div align="center">
+			<h:dataTable value="#{friendsListBean.personList}" var="row"
+				styleClass="imagetable" rowClasses="even,odd" >
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Sl.No" />
+					</f:facet>
+					<h:outputText value="#{row.rowId}" />
+				</h:column>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText value="Name" />
+					</f:facet>
+					<h:outputText value="#{row.name}" />
+				</h:column>
+			</h:dataTable>
 
-		<h:dataTable value="#{bean1.entries}" var="row" styleClass="imagetable" rowClasses="even,odd">
-			<h:column>
-				<f:facet name="header">
-					<h:outputText value="Name" />
-				</f:facet>
-				<h:outputText value="#{row.name}" />
-			</h:column>
-			<h:column>
-				<h:commandLink value="Delete" action="#{bean1.deleteAction}" immediate="true">
-					<f:setPropertyActionListener target="#{bean1.idToDelete}"
-						value="#{row.id}" />
-				</h:commandLink>
-			</h:column>
-		</h:dataTable>
-
+		</div>
+		<br></br>
+		<br></br>
+		<div align="center">
+			<h:commandButton value="Go back to Dashboard"
+				onclick="loginToFacebookClient();return false;"></h:commandButton>
+		</div>
 
 	</h:form>
 </h:body>
