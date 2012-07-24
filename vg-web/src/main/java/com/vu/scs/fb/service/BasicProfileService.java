@@ -25,6 +25,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.vu.scs.fb.bean.PersonDetail;
+import com.vu.scs.fb.util.FbrConstants;
 import com.vu.scs.fb.util.OAuthError;
 import com.vu.scs.fb.util.OAuthErrorHandler;
 
@@ -33,7 +34,7 @@ public class BasicProfileService {
 	private static Logger logger = LoggerFactory.getLogger(BasicProfileService.class);
 
 	public PersonDetail getUserBasicProfile(String accessToken) throws OAuthError {
-		String basicInfoUrl = "https://graph.facebook.com/me";
+		String basicInfoUrl = FbrConstants.FB_BASIC_INFO_URI;
 
 		PersonDetail personDetail = new PersonDetail();
 
