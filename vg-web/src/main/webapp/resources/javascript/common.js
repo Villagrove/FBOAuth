@@ -38,7 +38,7 @@ function validateAccessToken() {
 			|| accessTokenObj.value == "") {
 		// alert('codeObj.value:'+codeObj.value);
 		// alert('accessTokenObj.value:'+accessTokenObj.value);
-		alert("Invalid Access to FBR and Facebook.\n\nPlease login to Facebook Reader.");
+		alert("Invalid Access to Facebook Reader.\n\nPlease login with your Facebook Credentials.");
 		window.location.href = HOST_PREFIX + docBase + "/home.jsf";
 	}
 
