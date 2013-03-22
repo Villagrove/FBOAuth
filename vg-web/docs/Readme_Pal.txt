@@ -36,6 +36,8 @@ login with facebook suer id and click on apps on the top to make changes for the
 
 --------------------------------------------------------------------------------------------------------------
 
+jboss by default uses iw logfawork, to use ouro4j.xml inside the war, place the followign file and exclude the log4j and slf4 inside tha file
+src/main/webapp/WEB-INF/jboss-deployment-structure.xml
 
 --------------------------------------------------------------------------------------------------------------
 
