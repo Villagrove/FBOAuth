@@ -1,14 +1,14 @@
 // common js file
 
 // Pal
-// var HOST_PREFIX = "http://localhost:8080";
-//var clientAppId = "247266912049837";
-//var appSecret = "5624e24f6f98a2835da033422ba93798";
+ var HOST_PREFIX = "http://localhost:8080";
+var clientAppId = "247266912049837";
+var appSecret = "5624e24f6f98a2835da033422ba93798";
 
 // Kodi
-var HOST_PREFIX = "http://71.225.132.109:8090";
-var clientAppId = "358829927522628";
-var appSecret = "5d470688943d6c6c9f941cc900b5d7de";
+//var HOST_PREFIX = "http://71.225.132.109:8090";
+//var clientAppId = "358829927522628";
+//var appSecret = "5d470688943d6c6c9f941cc900b5d7de";
 
 var docBase = "/vg-web";
 
@@ -39,7 +39,7 @@ function validateAccessToken() {
 		// alert('codeObj.value:'+codeObj.value);
 		// alert('accessTokenObj.value:'+accessTokenObj.value);
 		alert("Invalid Access to Facebook Reader.\n\nPlease login with your Facebook Credentials.");
-		window.location.href = HOST_PREFIX + docBase + "/home.jsf";
+		//window.location.href = HOST_PREFIX + docBase + "/home.jsf";
 	}
 
 }

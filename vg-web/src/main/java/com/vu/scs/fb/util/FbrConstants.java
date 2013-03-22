@@ -2,15 +2,15 @@ package com.vu.scs.fb.util;
 
 public interface FbrConstants {
 	// Pal
-		// String HOST_PREFIX = "http://localhost:8080";
-		// String CLIENT_APP_ID = "247266912049837";
-		// String APP_SECRET = "5624e24f6f98a2835da033422ba93798";
+		 String HOST_PREFIX = "http://localhost:8080";
+		 String CLIENT_APP_ID = "247266912049837";
+		 String APP_SECRET = "5624e24f6f98a2835da033422ba93798";
 		// http://localhost:8080/vg-web/home.jsf
 
 		// Kodi
-		String HOST_PREFIX = "http://71.225.132.109:8090";
-		String CLIENT_APP_ID = "358829927522628";
-		String APP_SECRET = "5d470688943d6c6c9f941cc900b5d7de";
+//		String HOST_PREFIX = "http://71.225.132.109:8090";
+//		String CLIENT_APP_ID = "358829927522628";
+//		String APP_SECRET = "5d470688943d6c6c9f941cc900b5d7de";
 		// http://71.225.132.109:8090/vg-web/home.jsf
 
 		String STATE = "fbr123fbr";
