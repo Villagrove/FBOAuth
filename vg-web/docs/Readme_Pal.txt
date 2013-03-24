@@ -40,7 +40,8 @@ jboss by default uses iw logfawork, to use ouro4j.xml inside the war, place the 
 src/main/webapp/WEB-INF/jboss-deployment-structure.xml
 
 --------------------------------------------------------------------------------------------------------------
+Shutting down jboss 7.1.1 AS7 in domain mode
+./domain.sh --connect command=/host=master:shutdown
 
-
-
+--------------------------------------------------------------------------------------------------------------
 --------------------------------------------------------------------------------------------------------------
